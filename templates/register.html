@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Регистрация</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+</head>
+
+<body>
+  <div class="card">
+    <h2>Регистрация</h2>
+
+    {% if error %}
+    <ul class="flash-messages">
+      <li class="error">{{ error }}</li>
+    </ul>
+    {% endif %}
+
+    <form id="regForm" action="/register" method="POST">
+      <div class="form-group">
+        <label>Имя пользователя</label>
+        <input type="text" id="username" name="username" placeholder="Только латиница и цифры" required>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label>Пароль</label>
+        <input type="password" id="password" name="password" placeholder="Мин. 6 символов, буквы и цифры" required>
+      </div>
+      <div class="form-group">
+        <label>Подтверждение пароля</label>
+        <input type="password" id="confirm_password" name="confirm_password" required>
+      </div>
+      <div class="form-group">
+        <label>Капча: Сколько будет?</label>
+        <div class="captcha-box">
+          <span>{{ number1 }} + {{ number2 }} = </span>
+          <input type="number" id="captcha" name="captcha" required>
+        </div>
+      </div>
+      <button type="submit">Зарегистрироваться</button>
+    </form>
+    <div class="links">
+      Уже есть аккаунт? <a href="/login">Войти</a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('regForm').addEventListener('submit', function (e) {
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
+      const passConf = document.getElementById('confirm_password').value;
+
+      if (!/^[a-zA-Z0-9]{3,20}$/.test(user)) {
+        alert("Имя пользователя: 3-20 символов, только латиница и цифры.");
+        e.preventDefault(); return;
+      }
+      if (!/^(?=.*[a-zA-Z])(?=.*\d).{6,}$/.test(pass)) {
+        alert("Пароль: минимум 6 символов, обязательно буквы и цифры.");
+        e.preventDefault(); return;
+      }
+      if (pass !== passConf) {
+        alert("Пароли не совпадают!");
+        e.preventDefault(); return;
+      }
+    });
+  </script>
+</body>
+
+</html>

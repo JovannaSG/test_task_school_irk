@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Личный кабинет</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+</head>
+
+<body>
+  <div class="card">
+    <h2>Добро пожаловать, {{ username }}!</h2>
+
+    <div class="profile-info">
+      <p><strong>Email:</strong> {{ email }}</p>
+      <p><strong>Роль:</strong> Пользователь</p>
+      <p><strong>Дата регистрации:</strong> {{ created_at }}</p>
+    </div>
+
+    <form action="/logout" method="GET">
+      <button type="submit" style="background-color: var(--error); color: white;">Выйти</button>
+    </form>
+  </div>
+</body>
+
+</html>

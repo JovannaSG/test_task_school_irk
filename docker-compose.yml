@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: auth-service
+    ports:
+      - "8000:8000"
+    volumes:
+      # Пробрасываем текущую папку внутрь контейнера. 
+      # users.db появится прямо у вас в проекте
+      - ./:/app
+    restart: unless-stopped
